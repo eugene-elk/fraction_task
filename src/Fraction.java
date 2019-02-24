@@ -8,10 +8,12 @@ public class Fraction {
             denominator *= -1;
             numerator *= -1;
         }
-
         this.denominator = denominator;
         this.numerator = numerator;
+    }
 
+    public void print() {
+        System.out.println(numerator + " / " + denominator);
     }
 
     public Boolean isBigger(Fraction anotherFraction) {
