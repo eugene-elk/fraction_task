@@ -6,8 +6,27 @@ import java.io.*;
 public class FractionList {
     private List<Fraction> fractions;
 
+    public Fraction getFraction(int fractionNum) {
+        return fractions.get(fractionNum);
+    }
+
+    public void setFraction(int fractionNum, Fraction newValue) {
+        fractions.set(fractionNum, newValue);
+    }
+
+    public void sumWithAnotherFraction(int fractionNum, Fraction valueToAdd) {
+        setFraction(fractionNum, Fraction.sumTwoFractions(fractions.get(fractionNum), valueToAdd));
+    }
+
     public int size() {
         return fractions.size();
+    }
+
+    public void print() {
+        System.out.println("Fractions: ");
+        for (int i = 0; i < fractions.size(); i++) {
+            fractions.get(i).print();
+        }
     }
 
     // кеширование
@@ -101,8 +120,7 @@ public class FractionList {
     }
 
     public int countBiggerThan(Fraction toCompare) {
-        // TODO: нужно заменить equals на равенство дробей
-        if (toCompare.equals(cachedBiggerValue) && cachedBiggerBoolean) {
+        if (toCompare.isEqual(cachedBiggerValue) && cachedBiggerBoolean) {
             return cachedBiggerCount;
         }
         else {
@@ -120,8 +138,7 @@ public class FractionList {
     }
 
     public int countSmallerThan(Fraction toCompare) {
-        // TODO: нужно заменить equals на равенство дробей
-        if (toCompare.equals(cachedSmallerValue) && cachedSmallerBoolean) {
+        if (toCompare.isEqual(cachedSmallerValue) && cachedSmallerBoolean) {
             return cachedSmallerCount;
         }
         else {
@@ -138,5 +155,3 @@ public class FractionList {
         }
     }
 }
-
-
