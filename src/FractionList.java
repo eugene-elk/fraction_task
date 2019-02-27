@@ -6,17 +6,37 @@ import java.io.*;
 public class FractionList {
     private List<Fraction> fractions;
 
+    public int size() {
+        return fractions.size();
+    }
+
+    // кеширование
     private boolean cachedMinBoolean, cachedMaxBoolean;
     private Fraction cachedMin, cachedMax;
 
-    FractionList(Fraction... fs) {
-        this.fractions = new ArrayList<>(Arrays.asList(fs));
+    private boolean cachedBiggerBoolean, cachedSmallerBoolean;
+    private int cachedBiggerCount, cachedSmallerCount;
+    private Fraction cachedBiggerValue, cachedSmallerValue;
+
+    private void deleteCachedValues() {
         cachedMinBoolean = false;
         cachedMaxBoolean = false;
+        cachedBiggerBoolean = false;
+        cachedSmallerBoolean = false;
+    }
+
+    private FractionList() {
+        this.fractions = new ArrayList<>();
+        deleteCachedValues();
+    }
+
+    FractionList(Fraction... fs)  {
+        this();
+        this.fractions = Arrays.asList(fs);
     }
 
     FractionList(String filename) {
-        this.fractions = new ArrayList<>();
+        this();
         try(BufferedReader br = new BufferedReader(new FileReader(filename)))
         {
             //чтение построчно
@@ -33,19 +53,17 @@ public class FractionList {
         catch(IOException ex) {
             System.out.println(ex.getMessage());
         }
-        cachedMinBoolean = false;
-        cachedMaxBoolean = false;
     }
 
     public void addFraction(Fraction newFraction) {
         fractions.add(newFraction);
-        cachedMinBoolean = false;
-        cachedMaxBoolean = false;
+        deleteCachedValues();
     }
 
     public void addFraction(int numerator, int denominator) {
         Fraction newFraction = new Fraction(numerator, denominator);
-        addFraction(newFraction);
+        fractions.add(newFraction);
+        deleteCachedValues();
     }
 
     public Fraction findMax() {
@@ -83,27 +101,42 @@ public class FractionList {
     }
 
     public int countBiggerThan(Fraction toCompare) {
-        int result = 0;
-        for (Fraction fraction: fractions) {
-            if (fraction.isBigger(toCompare)) {
-                result += 1;
-            }
+        // TODO: нужно заменить equals на равенство дробей
+        if (toCompare.equals(cachedBiggerValue) && cachedBiggerBoolean) {
+            return cachedBiggerCount;
         }
-        return result;
+        else {
+            int result = 0;
+            for (Fraction fraction : fractions) {
+                if (fraction.isBigger(toCompare)) {
+                    result += 1;
+                }
+            }
+            cachedBiggerValue = toCompare;
+            cachedBiggerCount = result;
+            cachedBiggerBoolean = true;
+            return result;
+        }
     }
 
     public int countSmallerThan(Fraction toCompare) {
-        int result = 0;
-        for (Fraction fraction: fractions) {
-            if (fraction.isSmaller(toCompare)) {
-                result += 1;
-            }
+        // TODO: нужно заменить equals на равенство дробей
+        if (toCompare.equals(cachedSmallerValue) && cachedSmallerBoolean) {
+            return cachedSmallerCount;
         }
-        return result;
+        else {
+            int result = 0;
+            for (Fraction fraction : fractions) {
+                if (fraction.isBigger(toCompare)) {
+                    result += 1;
+                }
+            }
+            cachedSmallerValue = toCompare;
+            cachedSmallerCount = result;
+            cachedSmallerBoolean = true;
+            return result;
+        }
     }
-
-
-
 }
 
 
