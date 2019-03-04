@@ -9,14 +9,37 @@ public class Poly {
         this.coeffs = new FractionList(fs);
     }
 
-    public int length(){
+    public int length() {
         return coeffs.size();
     }
 
-    private void addOneMoreCoeff(Fraction coeff) {
-        coeffs.addFraction(coeff);
+    public void print() {
+        coeffs.print();
     }
 
+    public static Poly sumTwoPolys(Poly polyOne, Poly polyTwo) {
+
+        if (polyTwo.length() > polyOne.length()) {
+            Poly t = polyOne;
+            polyOne = polyTwo;
+            polyTwo = t;
+        }
+
+        for(int i = 0; i < polyTwo.length(); i++) {
+            polyOne.coeffs.sumWithAnotherFraction(i, polyTwo.coeffs.getFraction(i));
+        }
+
+        return polyOne;
+    }
+
+
+    /*
+    public void addOneMoreCoeff(Fraction coeff) {
+        coeffs.addFraction(coeff);
+    }
+    */
+
+    /*
     public void sumWithAnotherPoly(Poly anotherPoly) {
 
         // уравнивание размеров
@@ -33,11 +56,10 @@ public class Poly {
             }
         }
 
-        System.out.println(length() + " " + anotherPoly.length());
-
         // само сложение
         for (int i = 0; i < anotherPoly.length(); i++) {
             coeffs.sumWithAnotherFraction(i, anotherPoly.coeffs.getFraction(i));
         }
     }
+    */
 }

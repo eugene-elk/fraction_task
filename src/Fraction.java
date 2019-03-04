@@ -39,12 +39,13 @@ public class Fraction {
     }
 
     public static Fraction sumTwoFractions(Fraction fractionOne, Fraction fractionTwo) {
+        fractionOne = fractionReduction(fractionOne);
+        fractionTwo = fractionReduction(fractionTwo);
+
         int new_denominator = fractionOne.denominator * fractionTwo.denominator;
         int new_numerator = (fractionOne.numerator * fractionTwo.denominator) + (fractionTwo.numerator * fractionOne.denominator);
 
-        //TODO дописать сокращение дроби
-
-        return new Fraction(new_numerator, new_denominator);
+        return fractionReduction(new_numerator, new_denominator);
     }
 
     // Наибольший общий делитель (для сокращения)

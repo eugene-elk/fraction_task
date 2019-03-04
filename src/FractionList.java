@@ -11,9 +11,11 @@ public class FractionList {
     }
 
     public void setFraction(int fractionNum, Fraction newValue) {
+        deleteCachedValues();
         fractions.set(fractionNum, newValue);
     }
 
+    // Прибавить дробь к элементу массива по его номеру
     public void sumWithAnotherFraction(int fractionNum, Fraction valueToAdd) {
         setFraction(fractionNum, Fraction.sumTwoFractions(fractions.get(fractionNum), valueToAdd));
     }
@@ -74,6 +76,7 @@ public class FractionList {
         }
     }
 
+    // Добавление дробей в лист
     public void addFraction(Fraction newFraction) {
         fractions.add(newFraction);
         deleteCachedValues();
@@ -98,6 +101,7 @@ public class FractionList {
             return result;
         }
         else {
+            System.out.println("Get value from cache");
             return cachedMax;
         }
     }
@@ -115,12 +119,14 @@ public class FractionList {
             return result;
         }
         else {
+            System.out.println("Get value from cache");
             return cachedMin;
         }
     }
 
     public int countBiggerThan(Fraction toCompare) {
-        if (toCompare.isEqual(cachedBiggerValue) && cachedBiggerBoolean) {
+        if (cachedBiggerBoolean && toCompare.isEqual(cachedBiggerValue)) {
+            System.out.println("Get value from cache");
             return cachedBiggerCount;
         }
         else {
@@ -138,13 +144,14 @@ public class FractionList {
     }
 
     public int countSmallerThan(Fraction toCompare) {
-        if (toCompare.isEqual(cachedSmallerValue) && cachedSmallerBoolean) {
+        if (cachedSmallerBoolean && toCompare.isEqual(cachedSmallerValue)) {
+            System.out.println("Get value from cache");
             return cachedSmallerCount;
         }
         else {
             int result = 0;
             for (Fraction fraction : fractions) {
-                if (fraction.isBigger(toCompare)) {
+                if (fraction.isSmaller(toCompare)) {
                     result += 1;
                 }
             }
