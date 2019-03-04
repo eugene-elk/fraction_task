@@ -31,35 +31,4 @@ public class Poly {
 
         return polyOne;
     }
-
-
-    /*
-    public void addOneMoreCoeff(Fraction coeff) {
-        coeffs.addFraction(coeff);
-    }
-    */
-
-    /*
-    public void sumWithAnotherPoly(Poly anotherPoly) {
-
-        // уравнивание размеров
-        if (length() > anotherPoly.length()) {
-            Fraction zero = new Fraction(0, 1);
-            for (int i = 0; i < length() - anotherPoly.length(); i++) {
-                anotherPoly.addOneMoreCoeff(zero);
-            }
-        }
-        else if (length() < anotherPoly.length()) {
-            Fraction zero = new Fraction(0, 1);
-            for (int i = 0; i < anotherPoly.length() - length(); i++) {
-                addOneMoreCoeff(zero);
-            }
-        }
-
-        // само сложение
-        for (int i = 0; i < anotherPoly.length(); i++) {
-            coeffs.sumWithAnotherFraction(i, anotherPoly.coeffs.getFraction(i));
-        }
-    }
-    */
 }
