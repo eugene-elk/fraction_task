@@ -14,7 +14,7 @@ public class Poly {
     }
 
     private void addOneMoreCoeff(Fraction coeff) {
-        coeffs.addFraction();
+        coeffs.addFraction(coeff);
     }
 
     public void sumWithAnotherPoly(Poly anotherPoly) {

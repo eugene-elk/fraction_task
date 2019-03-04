@@ -42,8 +42,25 @@ public class Fraction {
         int new_denominator = fractionOne.denominator * fractionTwo.denominator;
         int new_numerator = (fractionOne.numerator * fractionTwo.denominator) + (fractionTwo.numerator * fractionOne.denominator);
 
-        return new Fraction(new_numerator, new_denominator);
-
         //TODO дописать сокращение дроби
+
+        return new Fraction(new_numerator, new_denominator);
+    }
+
+    // Наибольший общий делитель (для сокращения)
+    private static int gcd(int a, int b){
+        return b == 0 ? a : gcd(b,a % b);
+    }
+
+    // Сокращение
+    public static Fraction fractionReduction(int numerator, int denominator) {
+        int divider = gcd(numerator, denominator);
+        numerator /= divider;
+        denominator /= divider;
+        return new Fraction(numerator, denominator);
+    }
+
+    public static Fraction fractionReduction(Fraction toReduce) {
+        return fractionReduction(toReduce.numerator, toReduce.denominator);
     }
 }
